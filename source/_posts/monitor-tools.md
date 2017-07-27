@@ -1,6 +1,8 @@
 ---
 title: 虚拟机性能监控与故障处理工具
 date: 2017-07-27 13:38:07
+categories:
+- Java
 tags:
 ---
 
