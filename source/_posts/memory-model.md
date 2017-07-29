@@ -1,5 +1,5 @@
 ---
-title: memory-model
+title: Java内存模型那些事
 date: 2017-07-29 21:56:53
 categories:
 - Java
