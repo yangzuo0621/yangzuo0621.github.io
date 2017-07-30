@@ -254,6 +254,155 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/java-memory-area/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Zuo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang Zuo's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/30/java-memory-area/" itemprop="url">Java内存区域</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T08:49:29+08:00">
+                2017-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。</p>
+</blockquote>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器的作用主要是为了标识当前线程执行的字节码位置，从而完成分支、循环、跳转、异常处理、线程恢复等功能。<code>线程私有</code>。若线程执行的是一个Java方法，其代表了正在执行的虚拟机字节码地址，若线程执行的是一个Native方法，其为空。</p>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>虚拟机栈也是<code>线程私有</code>，是Java方法执行的内存模型，每个方法在执行的时候都会创建一个栈帧，用于存储局部变量、操作数栈、动态链接、加载出口等信息，每一个方法的调用，相当于一个栈帧入栈出栈的过程。在栈请求深度超过虚拟机允许的深度时，抛出<code>StackOverflowError</code>异常，在无法分配足够的内存区域时，抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>本地方法栈是虚拟机使用Native方法的区域。这意味着调用的方法是与平台相关的，如系统调用等。也是<code>线程私有</code>。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Java堆是存放对象实例的地方，所有对象实例以及数组都在堆上进行分配，是Java虚拟机管理的内存中最大的一块。为所有<code>线程共享</code>。它是垃圾收集器管理的主要区域。当堆中没有内存完成实例分配，且堆无法再扩展时，抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区也是为所有线程共享，它存储已被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。当方法区无法满足内存分配需求时，抛出<code>OutOfMemorryError</code>异常。</p>
+<p>方法区是一种逻辑上的概念，它的实现依虚拟机的不同有所差异。</p>
+<p>JDK1.6及其以前，HotSpot虚拟机将方法区用永久代来实现，带来的问题是更容易遇到内存溢出问题（永久代有-XX:+MaxPermSize上线）。</p>
+<p>JDK1.7中，HotSpot虚拟机逐步将方法区从永久代中移除，虽然还有永久代存在，但存储在永久代的部分数据已经转移到了Java Heap或者是 Native Heap。譬如符号引用(Symbols)转移到了native heap；字面量(interned strings)转移到了java heap；类的静态变量(class statics)转移到了java heap。</p>
+<p>JDK1.8中，HotSpot虚拟机已完全移除永久代，方法区的实现由<code>元空间(Metaspace)</code>代替，这部分内存并不在虚拟机中，直接使用本地内存。常量、静态变量、符号引用在堆中分配，类元数据在本地化内存中分配。</p>
+<p>PS：欢迎批评指正。</p>
+<blockquote>
+<p>参考：深入理解Java虚拟机 —— Java内存区域与内存溢出异常 第2章</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/29/memory-model/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -805,7 +954,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

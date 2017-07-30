@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="JDK 命令行工具jps：虚拟机进程状况工具列出正在运行的虚拟机进程。 jps [ option ] [ hostid ]    选项 作用     -q 只输出LVMID，省略主类的名称   -m 输出虚拟机进程启动时传递给主类main()函数的参数   -l 输出主类的全名，如果进程执行的是jar包，输出jar路径   -v 输出虚拟机进程启动时JVM参数     LVMID，Local Vi">
+<meta name="description" content="Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。  程序计数器程序计数器的作用主要是为了标识当前线程执行的字节码位置，从而完成分支、循环、跳转、异常处理、线程恢复等功能。线程私有。若线程执行的是一个Java方法，其代表了正在执行的虚拟机字节码地址，若线程执行的是一个Native方法，其为空。 虚拟机栈虚拟机栈也是线程私有，是Java方法执行的内存模型，每个方">
 <meta name="keywords" content="学习笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚拟机性能监控与故障处理工具">
-<meta property="og:url" content="http://yoursite.com/2017/07/27/monitor-tools/index.html">
+<meta property="og:title" content="Java内存区域">
+<meta property="og:url" content="http://yoursite.com/2017/07/30/java-memory-area/index.html">
 <meta property="og:site_name" content="Yang Zuo&#39;s Blog">
-<meta property="og:description" content="JDK 命令行工具jps：虚拟机进程状况工具列出正在运行的虚拟机进程。 jps [ option ] [ hostid ]    选项 作用     -q 只输出LVMID，省略主类的名称   -m 输出虚拟机进程启动时传递给主类main()函数的参数   -l 输出主类的全名，如果进程执行的是jar包，输出jar路径   -v 输出虚拟机进程启动时JVM参数     LVMID，Local Vi">
+<meta property="og:description" content="Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。  程序计数器程序计数器的作用主要是为了标识当前线程执行的字节码位置，从而完成分支、循环、跳转、异常处理、线程恢复等功能。线程私有。若线程执行的是一个Java方法，其代表了正在执行的虚拟机字节码地址，若线程执行的是一个Native方法，其为空。 虚拟机栈虚拟机栈也是线程私有，是Java方法执行的内存模型，每个方">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-29T08:47:49.000Z">
+<meta property="og:updated_time" content="2017-07-30T01:31:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虚拟机性能监控与故障处理工具">
-<meta name="twitter:description" content="JDK 命令行工具jps：虚拟机进程状况工具列出正在运行的虚拟机进程。 jps [ option ] [ hostid ]    选项 作用     -q 只输出LVMID，省略主类的名称   -m 输出虚拟机进程启动时传递给主类main()函数的参数   -l 输出主类的全名，如果进程执行的是jar包，输出jar路径   -v 输出虚拟机进程启动时JVM参数     LVMID，Local Vi">
+<meta name="twitter:title" content="Java内存区域">
+<meta name="twitter:description" content="Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。  程序计数器程序计数器的作用主要是为了标识当前线程执行的字节码位置，从而完成分支、循环、跳转、异常处理、线程恢复等功能。线程私有。若线程执行的是一个Java方法，其代表了正在执行的虚拟机字节码地址，若线程执行的是一个Native方法，其为空。 虚拟机栈虚拟机栈也是线程私有，是Java方法执行的内存模型，每个方">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/27/monitor-tools/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/30/java-memory-area/"/>
 
 
 
 
 
-  <title>虚拟机性能监控与故障处理工具 | Yang Zuo's Blog</title>
+  <title>Java内存区域 | Yang Zuo's Blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/monitor-tools/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/30/java-memory-area/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Zuo">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">虚拟机性能监控与故障处理工具</h1>
+          <h1 class="post-title" itemprop="name headline">Java内存区域</h1>
         
 
         <div class="post-meta">
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T13:38:07+08:00">
-                2017-07-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T08:49:29+08:00">
+                2017-07-30
               </time>
             
 
@@ -343,53 +343,21 @@
       
 
       
-        <h3 id="JDK-命令行工具"><a href="#JDK-命令行工具" class="headerlink" title="JDK 命令行工具"></a>JDK 命令行工具</h3><h4 id="jps：虚拟机进程状况工具"><a href="#jps：虚拟机进程状况工具" class="headerlink" title="jps：虚拟机进程状况工具"></a>jps：虚拟机进程状况工具</h4><p>列出正在运行的虚拟机进程。</p>
-<p><code>jps [ option ] [ hostid ]</code></p>
-<table>
-<thead>
-<tr>
-<th>选项</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-q</td>
-<td>只输出LVMID，省略主类的名称</td>
-</tr>
-<tr>
-<td>-m</td>
-<td>输出虚拟机进程启动时传递给主类main()函数的参数</td>
-</tr>
-<tr>
-<td>-l</td>
-<td>输出主类的全名，如果进程执行的是jar包，输出jar路径</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>输出虚拟机进程启动时JVM参数</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>LVMID，Local Virtual Machine Identifier，与操作系统的进程ID一致。</p>
+        <blockquote>
+<p>Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。</p>
 </blockquote>
-<h4 id="jstat：虚拟机统计信息监视工具"><a href="#jstat：虚拟机统计信息监视工具" class="headerlink" title="jstat：虚拟机统计信息监视工具"></a>jstat：虚拟机统计信息监视工具</h4><p>监视虚拟机各种运行状态信息。</p>
-<p><code>jstat [ option vmid [interval[s|ms] [count]] ]</code></p>
-<p><code>[protocol:][//]lvmid[@hostname[:port]/servername]</code></p>
-<h4 id="jinfo：Java配置信息工具"><a href="#jinfo：Java配置信息工具" class="headerlink" title="jinfo：Java配置信息工具"></a>jinfo：Java配置信息工具</h4><p>实时查看和调整虚拟机各项参数。</p>
-<p><code>jinfo [option] pid</code></p>
-<h4 id="jmap：Java内存映像工具"><a href="#jmap：Java内存映像工具" class="headerlink" title="jmap：Java内存映像工具"></a>jmap：Java内存映像工具</h4><p>生成堆转储快照（一般称为headdump或dump）。</p>
-<p><code>jmap [option] vmid</code></p>
-<h4 id="jhat：虚拟机堆转储快照分析工具"><a href="#jhat：虚拟机堆转储快照分析工具" class="headerlink" title="jhat：虚拟机堆转储快照分析工具"></a>jhat：虚拟机堆转储快照分析工具</h4><p>与jmap配合分析jmap生成的堆转储快照。jhat内置一个微型的HTTP/HTML服务器，启动后通过地址<code>http://localhost:7000</code>进行查看。</p>
-<h4 id="jstack：Java堆栈跟踪工具"><a href="#jstack：Java堆栈跟踪工具" class="headerlink" title="jstack：Java堆栈跟踪工具"></a>jstack：Java堆栈跟踪工具</h4><p>生成虚拟机当前时刻的线程快照（一般称为threaddump或javacore文件）。</p>
-<p><code>jstack [option] vmid</code></p>
-<h3 id="JDK-可视化工具"><a href="#JDK-可视化工具" class="headerlink" title="JDK 可视化工具"></a>JDK 可视化工具</h3><h4 id="VisualVM：多合一故障处理工具"><a href="#VisualVM：多合一故障处理工具" class="headerlink" title="VisualVM：多合一故障处理工具"></a>VisualVM：多合一故障处理工具</h4><p>VisualVM除了具有监控、管理、性能分析功能之外，还可以通过安装插件进行功能扩展。命令位置：<code>$JAVA_HOME\bin\jvisualvm</code>。</p>
-<p>Java VisualVM 插件中心已迁移至github，新地址为 <a href="https://visualvm.github.io/pluginscenters.html" target="_blank" rel="external">https://visualvm.github.io/pluginscenters.html</a><br>如果无法安装插件，可以在插件中心选择相应的版本，添加到<code>工具/插件/设置</code>中解决。</p>
-<h4 id="JConsole：Java监视与管理控制台"><a href="#JConsole：Java监视与管理控制台" class="headerlink" title="JConsole：Java监视与管理控制台"></a>JConsole：Java监视与管理控制台</h4><p>JConsole 是一种基于JMX的可视化监视、管理工具。可以对内存(jstat)、线程(jstack)进行监控，对JMX MBean进行管理。功能比较简单，实际中一般使用其他工具替代，如VisualVM。命令位置：<code>$JAVA_HOME\bin\jconsole</code>。</p>
-<p>PS：后续还会进行完善。</p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器的作用主要是为了标识当前线程执行的字节码位置，从而完成分支、循环、跳转、异常处理、线程恢复等功能。<code>线程私有</code>。若线程执行的是一个Java方法，其代表了正在执行的虚拟机字节码地址，若线程执行的是一个Native方法，其为空。</p>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>虚拟机栈也是<code>线程私有</code>，是Java方法执行的内存模型，每个方法在执行的时候都会创建一个栈帧，用于存储局部变量、操作数栈、动态链接、加载出口等信息，每一个方法的调用，相当于一个栈帧入栈出栈的过程。在栈请求深度超过虚拟机允许的深度时，抛出<code>StackOverflowError</code>异常，在无法分配足够的内存区域时，抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>本地方法栈是虚拟机使用Native方法的区域。这意味着调用的方法是与平台相关的，如系统调用等。也是<code>线程私有</code>。</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Java堆是存放对象实例的地方，所有对象实例以及数组都在堆上进行分配，是Java虚拟机管理的内存中最大的一块。为所有<code>线程共享</code>。它是垃圾收集器管理的主要区域。当堆中没有内存完成实例分配，且堆无法再扩展时，抛出<code>OutOfMemoryError</code>异常。</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区也是为所有线程共享，它存储已被虚拟机加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。当方法区无法满足内存分配需求时，抛出<code>OutOfMemorryError</code>异常。</p>
+<p>方法区是一种逻辑上的概念，它的实现依虚拟机的不同有所差异。</p>
+<p>JDK1.6及其以前，HotSpot虚拟机将方法区用永久代来实现，带来的问题是更容易遇到内存溢出问题（永久代有-XX:+MaxPermSize上线）。</p>
+<p>JDK1.7中，HotSpot虚拟机逐步将方法区从永久代中移除，虽然还有永久代存在，但存储在永久代的部分数据已经转移到了Java Heap或者是 Native Heap。譬如符号引用(Symbols)转移到了native heap；字面量(interned strings)转移到了java heap；类的静态变量(class statics)转移到了java heap。</p>
+<p>JDK1.8中，HotSpot虚拟机已完全移除永久代，方法区的实现由<code>元空间(Metaspace)</code>代替，这部分内存并不在虚拟机中，直接使用本地内存。常量、静态变量、符号引用在堆中分配，类元数据在本地化内存中分配。</p>
+<p>PS：欢迎批评指正。</p>
 <blockquote>
-<p>参考：深入理解Java虚拟机 —— JVM高级特性与最佳实践 第4章</p>
+<p>参考：深入理解Java虚拟机 —— Java内存区域与内存溢出异常 第2章</p>
 </blockquote>
 
       
@@ -433,15 +401,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/29/memory-model/" rel="next" title="Java内存模型那些事">
+                <i class="fa fa-chevron-left"></i> Java内存模型那些事
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/29/classloader-learning/" rel="prev" title="虚拟机类加载机制">
-                虚拟机类加载机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-命令行工具"><span class="nav-number">1.</span> <span class="nav-text">JDK 命令行工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jps：虚拟机进程状况工具"><span class="nav-number">1.1.</span> <span class="nav-text">jps：虚拟机进程状况工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jstat：虚拟机统计信息监视工具"><span class="nav-number">1.2.</span> <span class="nav-text">jstat：虚拟机统计信息监视工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jinfo：Java配置信息工具"><span class="nav-number">1.3.</span> <span class="nav-text">jinfo：Java配置信息工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmap：Java内存映像工具"><span class="nav-number">1.4.</span> <span class="nav-text">jmap：Java内存映像工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jhat：虚拟机堆转储快照分析工具"><span class="nav-number">1.5.</span> <span class="nav-text">jhat：虚拟机堆转储快照分析工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jstack：Java堆栈跟踪工具"><span class="nav-number">1.6.</span> <span class="nav-text">jstack：Java堆栈跟踪工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-可视化工具"><span class="nav-number">2.</span> <span class="nav-text">JDK 可视化工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VisualVM：多合一故障处理工具"><span class="nav-number">2.1.</span> <span class="nav-text">VisualVM：多合一故障处理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JConsole：Java监视与管理控制台"><span class="nav-number">2.2.</span> <span class="nav-text">JConsole：Java监视与管理控制台</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序计数器"><span class="nav-number">1.</span> <span class="nav-text">程序计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机栈"><span class="nav-number">2.</span> <span class="nav-text">虚拟机栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地方法栈"><span class="nav-number">3.</span> <span class="nav-text">本地方法栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆"><span class="nav-number">4.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法区"><span class="nav-number">5.</span> <span class="nav-text">方法区</span></a></li></ol></div>
             
 
           </div>
